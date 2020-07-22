@@ -1,55 +1,90 @@
-import { Http, HttpVersion, HttpSend } from './types/Http';
-import { HttpRequest } from './types/HttpRequest';
+import { Http, HttpVersion, HttpRequestTransportTools, HttpConfig } from './types/Http';
+import { HttpRequest, HttpMethod, HttpRequestHeaders } from './types/HttpRequest';
+import { HttpResponse } from './types/HttpResponse';
 import { request } from './HttpRequest';
-import { response, Response } from './HttpResponse';
+import { response } from './HttpResponse';
 
 export class BaseHttp implements Http {
+
   version = '1.1' as HttpVersion;
-
-  request = request;
-
-  response = response;
 
   interceptors = {};
 
-  send(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
+  config = {
+    headers: {},
   };
+
+  transportTools?: HttpRequestTransportTools;
+
+  constructor(config: Partial<HttpConfig>) {
+    this.setConfigHeaders(config.headers || {});
+  }
+
+  setVersion(version: HttpVersion) {
+    this.version = version;
+  }
+
+  setTransportTools (transportTools: HttpRequestTransportTools) {
+    this.transportTools = transportTools;
+  }
+
+  setConfigHeaders(headers: HttpRequestHeaders) {
+    this.config.headers = headers;
+  }
+
+  send(request: HttpRequest) {
+    if (!this.transportTools) {
+      throw Error('Please set http transportTools frist');
+    }
+    request = this.beforeSendRequest(request);
+    return this.transportTools(request);
+  }
 
   get(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
-  };
+    request.method = HttpMethod.get;
+    return this.send(request);
+  }
 
   post(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
-  };
+    request.method = HttpMethod.post;
+    return this.send(request);
+  }
 
   put(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
-  };
+    request.method = HttpMethod.put;
+    return this.send(request);
+  }
 
   delete(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
-  };
+    request.method = HttpMethod.delete;
+    return this.send(request);
+  }
 
   head(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
-  };
+    request.method = HttpMethod.head;
+    return this.send(request);
+  }
 
+  // TODO:
   uploadFile(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
-  };
+    request.method = HttpMethod.post;
+    return this.send(request);
+  }
 
+  // TODO:
   downloadFile(request: HttpRequest) {
-    const response = new Response();
-    return Promise.resolve(response)
-  };
+    request.method = HttpMethod.get;
+    return this.send(request);
+  }
+
+  autoFillConfigHeaders(request: HttpRequest): HttpRequest {
+    request.headers = Object.assign(request.headers, this.config.headers);
+    return request
+  }
+
+  beforeSendRequest(reuqest: HttpRequest): HttpRequest {
+    reuqest = this.autoFillConfigHeaders(reuqest);
+    return request;
+  }
 
 }
