@@ -52,6 +52,7 @@ const config = (env) => ({
     extensions: ['.ts', '.tsx', '.js',  '.jsx', '.vue', '.json'],
     alias: {
       '@': resolve('src'),
+      '@core': resolve('src/core'),
     },
   },
 });
