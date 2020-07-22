@@ -17,10 +17,6 @@ export interface HttpRequestTransportTools {
   (request: HttpRequest): Promise<HttpResponse>
 }
 
-export interface HttpRequestTransportToolsConverter {
-  (input: any): HttpRequest;
-}
-
 export interface HttpSend {
   (request: HttpRequest): Promise<HttpResponse>
 }
@@ -66,4 +62,9 @@ export interface Http {
 
   // 发送请求前钩子
   beforeSendRequest: (request: HttpRequest) => HttpRequest;
+}
+
+export interface adapter {
+  adapterRequest: (input: HttpRequest) => any;
+  adapterResponse: (input: any) => HttpResponse
 }

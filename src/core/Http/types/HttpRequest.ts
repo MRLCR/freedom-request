@@ -21,12 +21,13 @@ export interface HttpRequestHeaders {
   'Authorization'?: string;
   'Accept'?: string;
   'Cache'?: string;
-  [props: string]: string | number | boolean | undefined | null;
+  [pros: string]: any;
 }
 
 export interface HttpRequest {
-  path: string;
+  url: string;
   data?: HttpRequestData;
+  body?: BodyInit;
   method?: HttpMethod;
   headers?: HttpRequestHeaders;
 }

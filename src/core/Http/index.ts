@@ -1,8 +1,5 @@
 import { Http, HttpVersion, HttpRequestTransportTools, HttpConfig } from './types/Http';
 import { HttpRequest, HttpMethod, HttpRequestHeaders } from './types/HttpRequest';
-import { HttpResponse } from './types/HttpResponse';
-import { request } from './HttpRequest';
-import { response } from './HttpResponse';
 
 export class BaseHttp implements Http {
 
@@ -71,7 +68,7 @@ export class BaseHttp implements Http {
     return this.send(request);
   }
 
-  // TODO:
+  // TODO: 
   downloadFile(request: HttpRequest) {
     request.method = HttpMethod.get;
     return this.send(request);
@@ -84,7 +81,7 @@ export class BaseHttp implements Http {
 
   beforeSendRequest(reuqest: HttpRequest): HttpRequest {
     reuqest = this.autoFillConfigHeaders(reuqest);
-    return request;
+    return reuqest;
   }
 
 }

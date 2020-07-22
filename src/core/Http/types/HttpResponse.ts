@@ -29,6 +29,6 @@ export interface HttpResponseHeaders {
 
 export interface HttpResponse {
   status: HttpResponseStatus | number;
-  headers: HttpResponseHeaders;
+  headers?: HttpResponseHeaders;
   body?: string;
 }
