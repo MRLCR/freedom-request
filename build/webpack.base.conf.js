@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const resolve = (...args) => path.resolve(__dirname, ...args);
+const resolve = (...args) => path.resolve(__dirname, '../', ...args);
 
 const config = (env) => ({
   entry:  resolve('src/index.ts'),
