@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A multiterminal generic Request",
   "main": "./src/index.ts",
-  "scripts": {},
+  "scripts": {
+    "dev": "webpack-dev-server --env.NODE_ENV='development' --progress --config ./build/webpack.dev.conf.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MRLCR/-freedom-request.git"
@@ -26,6 +28,7 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "html-webpack-plugin": "^4.3.0",
     "ts-loader": "^8.0.1",
     "typescript": "^3.9.6",
     "webpack": "^4.43.0",
