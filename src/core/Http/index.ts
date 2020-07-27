@@ -75,7 +75,7 @@ export class BaseHttp implements Http {
   }
 
   autoFillConfigHeaders(request: HttpRequest): HttpRequest {
-    request.headers = Object.assign(request.headers, this.config.headers);
+    request.headers = Object.assign({}, request.headers, this.config.headers);
     return request
   }
 
