@@ -17,6 +17,7 @@ const devConfig = (env) => webpackMerge(baseConfig(env), {
   devServer: {
     open: true,
     hot: true,
+    disableHostCheck: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
